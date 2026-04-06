@@ -20,14 +20,11 @@ export default function TabsLayout() {
           backgroundColor: '#1A1A2E',
           borderTopWidth: 1,
           borderTopColor: '#2D2D44',
-          height: 65,
-          paddingBottom: 10,
-          paddingTop: 10,
+          height: 60,
+          paddingBottom: 8,
+          paddingTop: 8,
         },
-        tabBarLabelStyle: {
-          fontSize: 11,
-          fontWeight: '600',
-        },
+        tabBarShowLabel: false,
         headerStyle: {
           backgroundColor: '#1A1A2E',
           elevation: 0,
