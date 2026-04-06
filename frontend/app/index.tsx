@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingVi
 import { router } from 'expo-router';
 import { useAuth } from '../contexts/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function LoginScreen() {
   const { user, login, loading } = useAuth();
@@ -49,20 +50,23 @@ export default function LoginScreen() {
     >
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
-          <View style={styles.iconContainer}>
-            <Ionicons name="flash" size={40} color="#3B82F6" />
-          </View>
-          <Text style={styles.title}>OLT Management</Text>
-          <Text style={styles.subtitle}>Fiber Network Operations</Text>
+          <LinearGradient
+            colors={['#667eea', '#764ba2']}
+            style={styles.iconGradient}
+          >
+            <Ionicons name="flash" size={48} color="#FFFFFF" />
+          </LinearGradient>
+          <Text style={styles.title}>OLT Command</Text>
+          <Text style={styles.subtitle}>FIBER NETWORK CONTROL</Text>
         </View>
 
         <View style={styles.form}>
           <View style={styles.inputContainer}>
-            <Ionicons name="mail" size={20} color="#6B7280" style={styles.inputIcon} />
+            <Ionicons name="mail" size={20} color="#8B5CF6" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Email Address"
-              placeholderTextColor="#9CA3AF"
+              placeholderTextColor="#6B7280"
               value={email}
               onChangeText={setEmail}
               autoCapitalize="none"
@@ -71,11 +75,11 @@ export default function LoginScreen() {
           </View>
 
           <View style={styles.inputContainer}>
-            <Ionicons name="lock-closed" size={20} color="#6B7280" style={styles.inputIcon} />
+            <Ionicons name="lock-closed" size={20} color="#8B5CF6" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Password"
-              placeholderTextColor="#9CA3AF"
+              placeholderTextColor="#6B7280"
               value={password}
               onChangeText={setPassword}
               secureTextEntry={!showPassword}
@@ -90,27 +94,35 @@ export default function LoginScreen() {
             onPress={handleLogin}
             disabled={isLoading}
           >
-            <Text style={styles.loginButtonText}>
-              {isLoading ? 'Logging in...' : 'Login'}
-            </Text>
+            <LinearGradient
+              colors={['#667eea', '#764ba2']}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}
+              style={styles.buttonGradient}
+            >
+              <Text style={styles.loginButtonText}>
+                {isLoading ? 'ACCESSING...' : 'ACCESS SYSTEM'}
+              </Text>
+              <Ionicons name="arrow-forward" size={20} color="#FFFFFF" />
+            </LinearGradient>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.registerLink}
             onPress={() => router.push('/(auth)/register')}
           >
-            <Text style={styles.registerLinkText}>Create Account</Text>
+            <Text style={styles.registerLinkText}>Create New Account</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.demoCredentials}>
-          <Text style={styles.demoTitle}>Demo Credentials</Text>
+          <Text style={styles.demoTitle}>🔐 DEMO ACCESS</Text>
           <View style={styles.demoCard}>
-            <Text style={styles.demoLabel}>Operator</Text>
+            <Text style={styles.demoLabel}>OPERATOR</Text>
             <Text style={styles.demoText}>operator@olt.com / operator123</Text>
           </View>
           <View style={styles.demoCard}>
-            <Text style={styles.demoLabel}>Field Engineer</Text>
+            <Text style={styles.demoLabel}>FIELD ENGINEER</Text>
             <Text style={styles.demoText}>field@olt.com / field123</Text>
           </View>
         </View>
@@ -122,7 +134,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: '#0F0F1E',
   },
   scrollContent: {
     flexGrow: 1,
@@ -131,27 +143,28 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 48,
   },
-  iconContainer: {
-    width: 80,
-    height: 80,
-    borderRadius: 20,
-    backgroundColor: '#EFF6FF',
+  iconGradient: {
+    width: 96,
+    height: 96,
+    borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 20,
   },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 'bold',
-    color: '#1F2937',
-    marginTop: 8,
+    color: '#FFFFFF',
+    letterSpacing: 2,
   },
   subtitle: {
-    fontSize: 14,
-    color: '#6B7280',
+    fontSize: 12,
+    color: '#8B5CF6',
     marginTop: 8,
+    letterSpacing: 3,
+    fontWeight: '600',
   },
   form: {
     width: '100%',
@@ -159,10 +172,10 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
+    backgroundColor: '#1A1A2E',
+    borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#2D2D44',
     marginBottom: 16,
     paddingHorizontal: 16,
   },
@@ -171,71 +184,78 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 50,
-    color: '#1F2937',
+    height: 56,
+    color: '#FFFFFF',
     fontSize: 16,
   },
   eyeIcon: {
     padding: 8,
   },
   loginButton: {
-    backgroundColor: '#3B82F6',
-    borderRadius: 12,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderRadius: 16,
     marginTop: 8,
+    overflow: 'hidden',
   },
   loginButtonDisabled: {
     opacity: 0.6,
   },
+  buttonGradient: {
+    flexDirection: 'row',
+    height: 56,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 8,
+  },
   loginButtonText: {
     color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 15,
+    fontWeight: '700',
+    letterSpacing: 1.5,
   },
   registerLink: {
-    marginTop: 20,
+    marginTop: 24,
     alignItems: 'center',
     padding: 12,
   },
   registerLinkText: {
-    color: '#3B82F6',
+    color: '#8B5CF6',
     fontSize: 14,
     fontWeight: '600',
   },
   demoCredentials: {
     marginTop: 32,
-    padding: 16,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
+    padding: 20,
+    backgroundColor: '#1A1A2E',
+    borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#2D2D44',
   },
   demoTitle: {
     fontSize: 13,
-    fontWeight: '600',
-    color: '#374151',
+    fontWeight: '700',
+    color: '#FFFFFF',
     marginBottom: 12,
+    letterSpacing: 1,
   },
   demoCard: {
     marginTop: 8,
-    padding: 10,
-    backgroundColor: '#F9FAFB',
-    borderRadius: 8,
+    padding: 12,
+    backgroundColor: '#0F0F1E',
+    borderRadius: 12,
   },
   demoLabel: {
-    fontSize: 11,
-    color: '#6B7280',
-    fontWeight: '600',
+    fontSize: 10,
+    color: '#8B5CF6',
+    fontWeight: '700',
     marginBottom: 4,
+    letterSpacing: 1,
   },
   demoText: {
     fontSize: 12,
-    color: '#374151',
+    color: '#9CA3AF',
   },
   loadingText: {
     fontSize: 16,
-    color: '#6B7280',
+    color: '#9CA3AF',
   },
 });
