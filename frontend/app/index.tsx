@@ -56,7 +56,7 @@ export default function LoginScreen() {
           >
             <Ionicons name="flash" size={48} color="#FFFFFF" />
           </LinearGradient>
-          <Text style={styles.title}>OLT Command</Text>
+          <Text style={styles.title}>Purplive</Text>
           <Text style={styles.subtitle}>FIBER NETWORK CONTROL</Text>
         </View>
 
