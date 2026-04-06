@@ -7,12 +7,6 @@ import { useEffect } from 'react';
 export default function TabsLayout() {
   const { user, isOperator, isFieldEngineer } = useAuth();
 
-  useEffect(() => {
-    if (!user) {
-      router.replace('/');
-    }
-  }, [user]);
-
   if (!user) {
     return null;
   }

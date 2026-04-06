@@ -13,7 +13,7 @@ export default function LoginScreen() {
 
   useEffect(() => {
     if (user && !loading) {
-      router.replace('/(tabs)');
+      router.replace('/(tabs)/dashboard');
     }
   }, [user, loading]);
 
@@ -26,7 +26,7 @@ export default function LoginScreen() {
     setIsLoading(true);
     try {
       await login(email, password);
-      router.replace('/(tabs)');
+      router.replace('/(tabs)/dashboard');
     } catch (error: any) {
       Alert.alert('Login Failed', error.message);
     } finally {
