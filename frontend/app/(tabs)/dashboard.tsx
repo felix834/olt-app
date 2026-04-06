@@ -54,8 +54,17 @@ export default function DashboardScreen() {
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#8B5CF6" />}
     >
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>COMMAND CENTER</Text>
-        <Text style={styles.headerSubtitle}>REAL-TIME NETWORK OPERATIONS</Text>
+        <View style={styles.headerTop}>
+          <View>
+            <Text style={styles.headerTitle}>COMMAND CENTER</Text>
+            <Text style={styles.headerSubtitle}>REAL-TIME NETWORK OPERATIONS</Text>
+          </View>
+          <View style={styles.headerIcon}>
+            <LinearGradient colors={['#667eea', '#764ba2']} style={styles.iconGradient}>
+              <Ionicons name="pulse" size={24} color="#FFFFFF" />
+            </LinearGradient>
+          </View>
+        </View>
       </View>
 
       <View style={styles.statsGrid}>
@@ -65,7 +74,9 @@ export default function DashboardScreen() {
           end={{x: 1, y: 1}}
           style={styles.statCard}
         >
-          <Ionicons name="server" size={28} color="#FFFFFF" />
+          <View style={styles.statIconContainer}>
+            <Ionicons name="server" size={32} color="#FFFFFF" />
+          </View>
           <Text style={styles.statValue}>{oltStats?.total_olts || 0}</Text>
           <Text style={styles.statLabel}>TOTAL OLTs</Text>
           <View style={styles.statGlow} />
@@ -77,7 +88,9 @@ export default function DashboardScreen() {
           end={{x: 1, y: 1}}
           style={styles.statCard}
         >
-          <Ionicons name="checkmark-circle" size={28} color="#FFFFFF" />
+          <View style={styles.statIconContainer}>
+            <Ionicons name="checkmark-circle" size={32} color="#FFFFFF" />
+          </View>
           <Text style={styles.statValue}>{oltStats?.active_olts || 0}</Text>
           <Text style={styles.statLabel}>ACTIVE</Text>
           <View style={styles.statGlow} />
@@ -89,7 +102,9 @@ export default function DashboardScreen() {
           end={{x: 1, y: 1}}
           style={styles.statCard}
         >
-          <Ionicons name="warning" size={28} color="#FFFFFF" />
+          <View style={styles.statIconContainer}>
+            <Ionicons name="warning" size={32} color="#FFFFFF" />
+          </View>
           <Text style={styles.statValue}>{faultStats?.open_faults || 0}</Text>
           <Text style={styles.statLabel}>OPEN FAULTS</Text>
           <View style={styles.statGlow} />
@@ -101,7 +116,9 @@ export default function DashboardScreen() {
           end={{x: 1, y: 1}}
           style={styles.statCard}
         >
-          <Ionicons name="hourglass" size={28} color="#FFFFFF" />
+          <View style={styles.statIconContainer}>
+            <Ionicons name="time" size={32} color="#FFFFFF" />
+          </View>
           <Text style={styles.statValue}>{faultStats?.in_progress || 0}</Text>
           <Text style={styles.statLabel}>IN PROGRESS</Text>
           <View style={styles.statGlow} />
@@ -110,8 +127,19 @@ export default function DashboardScreen() {
 
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>ACTIVE OLT DEVICES</Text>
-          <Text style={styles.sectionSubtitle}>Network Infrastructure Status</Text>
+          <View style={styles.sectionTitleContainer}>
+            <View style={styles.sectionIconContainer}>
+              <Ionicons name="layers" size={20} color="#8B5CF6" />
+            </View>
+            <View>
+              <Text style={styles.sectionTitle}>ACTIVE OLT DEVICES</Text>
+              <Text style={styles.sectionSubtitle}>Network Infrastructure Status</Text>
+            </View>
+          </View>
+          <TouchableOpacity style={styles.viewAllButton}>
+            <Text style={styles.viewAllText}>View All</Text>
+            <Ionicons name="arrow-forward" size={16} color="#8B5CF6" />
+          </TouchableOpacity>
         </View>
 
         {olts.map((olt: any) => (
@@ -121,20 +149,28 @@ export default function DashboardScreen() {
             onPress={() => router.push(`/olt-detail/${olt.id}`)}
           >
             <View style={styles.oltCardLeft}>
-              <View style={[
-                styles.oltIndicator,
-                { backgroundColor: olt.status === 'active' ? '#10b981' : olt.status === 'fault' ? '#ef4444' : '#6b7280' }
-              ]} />
+              <LinearGradient
+                colors={olt.status === 'active' ? ['#10b981', '#059669'] : ['#ef4444', '#dc2626']}
+                style={styles.oltIconContainer}
+              >
+                <Ionicons 
+                  name={olt.status === 'active' ? 'wifi' : 'wifi-off'} 
+                  size={24} 
+                  color="#FFFFFF" 
+                />
+              </LinearGradient>
               <View style={styles.oltInfo}>
                 <Text style={styles.oltName}>{olt.name}</Text>
-                <Text style={styles.oltLocation}>{olt.location}</Text>
+                <Text style={styles.oltLocation}>
+                  <Ionicons name="location" size={12} color="#6B7280" /> {olt.location}
+                </Text>
                 <View style={styles.oltMetrics}>
                   <View style={styles.metric}>
                     <Ionicons name="hardware-chip" size={14} color="#8B5CF6" />
                     <Text style={styles.metricText}>{olt.active_ports}/{olt.total_ports}</Text>
                   </View>
                   <View style={styles.metric}>
-                    <Ionicons name="wifi" size={14} color="#06b6d4" />
+                    <Ionicons name="globe" size={14} color="#06b6d4" />
                     <Text style={styles.metricText}>{olt.ip_address}</Text>
                   </View>
                 </View>
@@ -169,6 +205,11 @@ const styles = StyleSheet.create({
     padding: 24,
     paddingTop: 16,
   },
+  headerTop: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
   headerTitle: {
     fontSize: 28,
     fontWeight: 'bold',
@@ -181,6 +222,16 @@ const styles = StyleSheet.create({
     marginTop: 4,
     letterSpacing: 2,
     fontWeight: '600',
+  },
+  headerIcon: {
+    marginLeft: 12,
+  },
+  iconGradient: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   statsGrid: {
     flexDirection: 'row',
@@ -195,6 +246,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     position: 'relative',
     overflow: 'hidden',
+  },
+  statIconContainer: {
+    marginBottom: 8,
   },
   statValue: {
     fontSize: 36,
@@ -211,22 +265,40 @@ const styles = StyleSheet.create({
   },
   statGlow: {
     position: 'absolute',
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    top: -30,
-    right: -30,
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    top: -40,
+    right: -40,
   },
   section: {
     padding: 16,
     marginTop: 8,
   },
   sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 16,
   },
+  sectionTitleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  sectionIconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: '#1A1A2E',
+    borderWidth: 1,
+    borderColor: '#2D2D44',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
     color: '#FFFFFF',
     letterSpacing: 1.5,
@@ -234,8 +306,24 @@ const styles = StyleSheet.create({
   sectionSubtitle: {
     fontSize: 11,
     color: '#6B7280',
-    marginTop: 4,
-    letterSpacing: 1,
+    marginTop: 2,
+    letterSpacing: 0.5,
+  },
+  viewAllButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    backgroundColor: '#1A1A2E',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#2D2D44',
+  },
+  viewAllText: {
+    fontSize: 12,
+    color: '#8B5CF6',
+    fontWeight: '600',
   },
   oltCard: {
     backgroundColor: '#1A1A2E',
@@ -252,12 +340,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
+    gap: 12,
   },
-  oltIndicator: {
-    width: 4,
-    height: 48,
-    borderRadius: 2,
-    marginRight: 12,
+  oltIconContainer: {
+    width: 56,
+    height: 56,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   oltInfo: {
     flex: 1,

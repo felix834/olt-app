@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
 import { useAuth } from '../../contexts/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function ProfileScreen() {
   const { user, logout } = useAuth();
@@ -19,26 +20,31 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.avatar}>
+      <LinearGradient
+        colors={['#667eea', '#764ba2']}
+        style={styles.header}
+      >
+        <View style={styles.avatarContainer}>
           <Ionicons name="person" size={48} color="#FFFFFF" />
         </View>
         <Text style={styles.name}>{user?.name}</Text>
         <Text style={styles.email}>{user?.email}</Text>
         <View style={styles.roleBadge}>
           <Text style={styles.roleText}>
-            {user?.role === 'operator' ? 'Operator' : 'Field Engineer'}
+            {user?.role === 'operator' ? 'OPERATOR' : 'FIELD ENGINEER'}
           </Text>
         </View>
-      </View>
+      </LinearGradient>
 
       <View style={styles.infoSection}>
-        <View style={styles.infoRow}>
-          <Ionicons name="call-outline" size={20} color="#6B7280" />
+        <View style={styles.infoCard}>
+          <Ionicons name="call" size={20} color="#8B5CF6" />
+          <Text style={styles.infoLabel}>Phone</Text>
           <Text style={styles.infoText}>{user?.phone || 'N/A'}</Text>
         </View>
-        <View style={styles.infoRow}>
-          <Ionicons name="shield-checkmark-outline" size={20} color="#6B7280" />
+        <View style={styles.infoCard}>
+          <Ionicons name="shield-checkmark" size={20} color="#06b6d4" />
+          <Text style={styles.infoLabel}>Access Level</Text>
           <Text style={styles.infoText}>
             {user?.role === 'operator' ? 'Full Access' : 'Field Access'}
           </Text>
@@ -46,8 +52,15 @@ export default function ProfileScreen() {
       </View>
 
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Ionicons name="log-out-outline" size={20} color="#EF4444" />
-        <Text style={styles.logoutText}>Logout</Text>
+        <LinearGradient
+          colors={['#f43f5e', '#e11d48']}
+          start={{x: 0, y: 0}}
+          end={{x: 1, y: 0}}
+          style={styles.logoutGradient}
+        >
+          <Ionicons name="log-out" size={20} color="#FFFFFF" />
+          <Text style={styles.logoutText}>Logout</Text>
+        </LinearGradient>
       </TouchableOpacity>
     </View>
   );
@@ -56,80 +69,85 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: '#0F0F1E',
   },
   header: {
-    backgroundColor: '#FFFFFF',
-    padding: 24,
+    padding: 32,
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
   },
-  avatar: {
+  avatarContainer: {
     width: 96,
     height: 96,
     borderRadius: 48,
-    backgroundColor: '#3B82F6',
+    backgroundColor: 'rgba(255,255,255,0.2)',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
   },
   name: {
     fontSize: 24,
-    fontWeight: '600',
-    color: '#1F2937',
+    fontWeight: 'bold',
+    color: '#FFFFFF',
     marginBottom: 4,
   },
   email: {
     fontSize: 14,
-    color: '#6B7280',
-    marginBottom: 12,
+    color: 'rgba(255,255,255,0.8)',
+    marginBottom: 16,
   },
   roleBadge: {
-    backgroundColor: '#EFF6FF',
+    backgroundColor: 'rgba(255,255,255,0.2)',
     paddingHorizontal: 16,
-    paddingVertical: 6,
-    borderRadius: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
   },
   roleText: {
-    color: '#3B82F6',
-    fontSize: 12,
-    fontWeight: '600',
+    color: '#FFFFFF',
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 1.5,
   },
   infoSection: {
-    backgroundColor: '#FFFFFF',
-    marginTop: 16,
     padding: 16,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: '#E5E7EB',
-  },
-  infoRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 12,
     gap: 12,
   },
+  infoCard: {
+    backgroundColor: '#1A1A2E',
+    borderRadius: 16,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#2D2D44',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  infoLabel: {
+    fontSize: 13,
+    color: '#6B7280',
+    flex: 1,
+  },
   infoText: {
-    fontSize: 16,
-    color: '#1F2937',
+    fontSize: 14,
+    color: '#FFFFFF',
+    fontWeight: '600',
   },
   logoutButton: {
+    margin: 16,
+    marginTop: 32,
+    borderRadius: 16,
+    overflow: 'hidden',
+  },
+  logoutGradient: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    backgroundColor: '#FFFFFF',
-    marginTop: 24,
-    marginHorizontal: 16,
     padding: 16,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#FEE2E2',
   },
   logoutText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#EF4444',
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    letterSpacing: 1,
   },
 });

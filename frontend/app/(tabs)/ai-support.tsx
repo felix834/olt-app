@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, FlatList, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import { api } from '../../utils/api';
 
 interface Message {
@@ -14,7 +15,7 @@ export default function AISupportScreen() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: 'Hello! I\'m your AI assistant for OLT Management. I can help you with:\n\n• Troubleshooting network issues\n• Understanding ONU power levels\n• Diagnosing connectivity problems\n• Fault resolution guidance\n\nHow can I assist you today?',
+      text: 'Hello! I am your AI assistant for OLT Management. I can help you with:\n\n• Troubleshooting network issues\n• Understanding ONU power levels\n• Diagnosing connectivity problems\n• Fault resolution guidance\n\nHow can I assist you today?',
       isUser: false,
       timestamp: new Date(),
     },
@@ -61,9 +62,12 @@ export default function AISupportScreen() {
   const renderMessage = ({ item }: { item: Message }) => (
     <View style={[styles.messageContainer, item.isUser ? styles.userMessage : styles.aiMessage]}>
       {!item.isUser && (
-        <View style={styles.aiAvatar}>
-          <Ionicons name="sparkles" size={16} color="#3B82F6" />
-        </View>
+        <LinearGradient
+          colors={['#667eea', '#764ba2']}
+          style={styles.aiAvatar}
+        >
+          <Ionicons name="sparkles" size={16} color="#FFFFFF" />
+        </LinearGradient>
       )}
       <View style={[styles.messageBubble, item.isUser ? styles.userBubble : styles.aiBubble]}>
         <Text style={[styles.messageText, item.isUser ? styles.userText : styles.aiText]}>
@@ -84,7 +88,6 @@ export default function AISupportScreen() {
         renderItem={renderMessage}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.messagesContainer}
-        inverted={false}
       />
 
       {loading && (
@@ -100,19 +103,23 @@ export default function AISupportScreen() {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Ask me anything about OLT management..."
-          placeholderTextColor="#9CA3AF"
+          placeholder="Ask me anything..."
+          placeholderTextColor="#6B7280"
           value={inputText}
           onChangeText={setInputText}
           multiline
-          maxLength={500}
         />
         <TouchableOpacity
           style={[styles.sendButton, (!inputText.trim() || loading) && styles.sendButtonDisabled]}
           onPress={sendMessage}
           disabled={!inputText.trim() || loading}
         >
-          <Ionicons name="send" size={20} color="#FFFFFF" />
+          <LinearGradient
+            colors={['#667eea', '#764ba2']}
+            style={styles.sendGradient}
+          >
+            <Ionicons name="send" size={20} color="#FFFFFF" />
+          </LinearGradient>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -122,7 +129,7 @@ export default function AISupportScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: '#0F0F1E',
   },
   messagesContainer: {
     padding: 16,
@@ -131,6 +138,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 16,
     alignItems: 'flex-start',
+    gap: 8,
   },
   userMessage: {
     justifyContent: 'flex-end',
@@ -142,25 +150,23 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: '#EFF6FF',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 8,
   },
   messageBubble: {
-    maxWidth: '80%',
+    maxWidth: '75%',
     padding: 12,
     borderRadius: 16,
   },
   userBubble: {
-    backgroundColor: '#3B82F6',
+    backgroundColor: '#667eea',
     marginLeft: 'auto',
     borderBottomRightRadius: 4,
   },
   aiBubble: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#1A1A2E',
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#2D2D44',
     borderBottomLeftRadius: 4,
   },
   messageText: {
@@ -171,7 +177,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   aiText: {
-    color: '#1F2937',
+    color: '#E5E7EB',
   },
   loadingContainer: {
     paddingHorizontal: 16,
@@ -179,7 +185,7 @@ const styles = StyleSheet.create({
   },
   typingIndicator: {
     flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#1A1A2E',
     padding: 12,
     borderRadius: 16,
     alignSelf: 'flex-start',
@@ -190,35 +196,41 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#9CA3AF',
+    backgroundColor: '#8B5CF6',
   },
   inputContainer: {
     flexDirection: 'row',
     padding: 16,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#1A1A2E',
     borderTopWidth: 1,
-    borderTopColor: '#E5E7EB',
+    borderTopColor: '#2D2D44',
     gap: 12,
   },
   input: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: '#0F0F1E',
     borderRadius: 24,
     paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingVertical: 12,
     fontSize: 15,
-    color: '#1F2937',
+    color: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#2D2D44',
     maxHeight: 100,
   },
   sendButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: '#3B82F6',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    overflow: 'hidden',
   },
   sendButtonDisabled: {
     opacity: 0.5,
+  },
+  sendGradient: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

@@ -37,7 +37,7 @@ export default function CustomersScreen() {
       style={styles.customerCard}
       onPress={() => router.push(`/customer-detail/${item.id}`)}
     >
-      <View style={styles.customerHeader}>
+      <View style={styles.cardHeader}>
         <View style={styles.customerInfo}>
           <Text style={styles.customerName}>{item.name}</Text>
           <Text style={styles.customerId}>ID: {item.customer_id}</Text>
@@ -47,16 +47,16 @@ export default function CustomersScreen() {
       
       <View style={styles.customerDetails}>
         <View style={styles.detailRow}>
-          <Ionicons name="call-outline" size={16} color="#6B7280" />
+          <Ionicons name="call" size={14} color="#8B5CF6" />
           <Text style={styles.detailText}>{item.phone}</Text>
         </View>
         <View style={styles.detailRow}>
-          <Ionicons name="wifi-outline" size={16} color="#6B7280" />
+          <Ionicons name="wifi" size={14} color="#06b6d4" />
           <Text style={styles.detailText}>{item.broadband_plan}</Text>
         </View>
         <View style={styles.detailRow}>
-          <Ionicons name="card-outline" size={16} color="#6B7280" />
-          <Text style={styles.detailText}>₹{item.billing_amount} - </Text>
+          <Ionicons name="card" size={14} color="#f59e0b" />
+          <Text style={styles.detailText}>₹{item.billing_amount}</Text>
           <StatusBadge status={item.billing_status} type="billing" />
         </View>
       </View>
@@ -66,11 +66,11 @@ export default function CustomersScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-        <Ionicons name="search-outline" size={20} color="#6B7280" style={styles.searchIcon} />
+        <Ionicons name="search" size={20} color="#8B5CF6" style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
-          placeholder="Search by name, ID, or phone"
-          placeholderTextColor="#9CA3AF"
+          placeholder="Search customers..."
+          placeholderTextColor="#6B7280"
           value={search}
           onChangeText={setSearch}
         />
@@ -86,12 +86,12 @@ export default function CustomersScreen() {
         renderItem={renderCustomer}
         keyExtractor={(item: any) => item.id}
         contentContainerStyle={styles.listContent}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#8B5CF6" />}
         ListEmptyComponent={
           <View style={styles.emptyState}>
-            <Ionicons name="people-outline" size={64} color="#D1D5DB" />
+            <Ionicons name="people" size={64} color="#2D2D44" />
             <Text style={styles.emptyText}>
-              {loading ? 'Loading customers...' : 'No customers found'}
+              {loading ? 'Loading...' : 'No customers found'}
             </Text>
           </View>
         }
@@ -103,25 +103,25 @@ export default function CustomersScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: '#0F0F1E',
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#1A1A2E',
     margin: 16,
     paddingHorizontal: 16,
-    borderRadius: 12,
+    borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#2D2D44',
   },
   searchIcon: {
-    marginRight: 8,
+    marginRight: 12,
   },
   searchInput: {
     flex: 1,
-    height: 44,
-    color: '#1F2937',
+    height: 50,
+    color: '#FFFFFF',
     fontSize: 16,
   },
   listContent: {
@@ -129,14 +129,14 @@ const styles = StyleSheet.create({
     paddingTop: 0,
   },
   customerCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
+    backgroundColor: '#1A1A2E',
+    borderRadius: 16,
     padding: 16,
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#2D2D44',
   },
-  customerHeader: {
+  cardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
@@ -148,10 +148,10 @@ const styles = StyleSheet.create({
   customerName: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1F2937',
+    color: '#FFFFFF',
   },
   customerId: {
-    fontSize: 13,
+    fontSize: 12,
     color: '#6B7280',
     marginTop: 4,
   },
@@ -164,8 +164,8 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   detailText: {
-    fontSize: 14,
-    color: '#6B7280',
+    fontSize: 13,
+    color: '#9CA3AF',
   },
   emptyState: {
     alignItems: 'center',
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
-    color: '#9CA3AF',
+    color: '#6B7280',
     marginTop: 16,
   },
 });
