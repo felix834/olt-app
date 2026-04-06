@@ -14,32 +14,34 @@ export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#3B82F6',
-        tabBarInactiveTintColor: '#9CA3AF',
+        tabBarActiveTintColor: '#8B5CF6',
+        tabBarInactiveTintColor: '#6B7280',
         tabBarStyle: {
-          backgroundColor: '#FFFFFF',
+          backgroundColor: '#1A1A2E',
           borderTopWidth: 1,
-          borderTopColor: '#E5E7EB',
-          height: 60,
-          paddingBottom: 8,
-          paddingTop: 8,
+          borderTopColor: '#2D2D44',
+          height: 65,
+          paddingBottom: 10,
+          paddingTop: 10,
         },
         tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '500',
+          fontSize: 11,
+          fontWeight: '600',
         },
         headerStyle: {
-          backgroundColor: '#FFFFFF',
+          backgroundColor: '#1A1A2E',
           elevation: 0,
           shadowOpacity: 0,
           borderBottomWidth: 1,
-          borderBottomColor: '#E5E7EB',
+          borderBottomColor: '#2D2D44',
         },
         headerTitleStyle: {
           fontSize: 18,
-          fontWeight: '600',
-          color: '#1F2937',
+          fontWeight: '700',
+          color: '#FFFFFF',
+          letterSpacing: 1,
         },
+        headerTintColor: '#FFFFFF',
       }}
     >
       {isOperator ? (
@@ -48,35 +50,35 @@ export default function TabsLayout() {
             name="dashboard"
             options={{
               title: 'Dashboard',
-              tabBarIcon: ({ color, size }) => <Ionicons name="grid-outline" size={size} color={color} />,
+              tabBarIcon: ({ color, size }) => <Ionicons name="apps" size={size} color={color} />,
             }}
           />
           <Tabs.Screen
             name="customers"
             options={{
               title: 'Customers',
-              tabBarIcon: ({ color, size }) => <Ionicons name="people-outline" size={size} color={color} />,
+              tabBarIcon: ({ color, size }) => <Ionicons name="people" size={size} color={color} />,
             }}
           />
           <Tabs.Screen
             name="faults"
             options={{
               title: 'Faults',
-              tabBarIcon: ({ color, size }) => <Ionicons name="warning-outline" size={size} color={color} />,
+              tabBarIcon: ({ color, size }) => <Ionicons name="alert-circle" size={size} color={color} />,
             }}
           />
           <Tabs.Screen
             name="ai-support"
             options={{
               title: 'AI Support',
-              tabBarIcon: ({ color, size }) => <Ionicons name="chatbubble-outline" size={size} color={color} />,
+              tabBarIcon: ({ color, size }) => <Ionicons name="sparkles" size={size} color={color} />,
             }}
           />
           <Tabs.Screen
             name="profile"
             options={{
               title: 'Profile',
-              tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" size={size} color={color} />,
+              tabBarIcon: ({ color, size }) => <Ionicons name="person-circle" size={size} color={color} />,
             }}
           />
           <Tabs.Screen name="assigned-faults" options={{ href: null }} />
@@ -87,29 +89,29 @@ export default function TabsLayout() {
           <Tabs.Screen
             name="assigned-faults"
             options={{
-              title: 'My Faults',
-              tabBarIcon: ({ color, size }) => <Ionicons name="list-outline" size={size} color={color} />,
+              title: 'My Tasks',
+              tabBarIcon: ({ color, size }) => <Ionicons name="clipboard" size={size} color={color} />,
             }}
           />
           <Tabs.Screen
             name="customer-lookup"
             options={{
-              title: 'Customers',
-              tabBarIcon: ({ color, size }) => <Ionicons name="search-outline" size={size} color={color} />,
+              title: 'Search',
+              tabBarIcon: ({ color, size }) => <Ionicons name="search-circle" size={size} color={color} />,
             }}
           />
           <Tabs.Screen
             name="ai-support"
             options={{
-              title: 'AI Support',
-              tabBarIcon: ({ color, size }) => <Ionicons name="chatbubble-outline" size={size} color={color} />,
+              title: 'AI Help',
+              tabBarIcon: ({ color, size }) => <Ionicons name="sparkles" size={size} color={color} />,
             }}
           />
           <Tabs.Screen
             name="profile"
             options={{
               title: 'Profile',
-              tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" size={size} color={color} />,
+              tabBarIcon: ({ color, size }) => <Ionicons name="person-circle" size={size} color={color} />,
             }}
           />
           <Tabs.Screen name="dashboard" options={{ href: null }} />
