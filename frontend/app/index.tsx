@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingVi
 import { router } from 'expo-router';
 import { useAuth } from '../contexts/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
 
 export default function LoginScreen() {
   const { user, login, loading } = useAuth();
@@ -51,26 +50,19 @@ export default function LoginScreen() {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <View style={styles.iconContainer}>
-            <LinearGradient
-              colors={['#667eea', '#764ba2']}
-              style={styles.iconGradient}
-            >
-              <Ionicons name="flash" size={48} color="#FFFFFF" />
-            </LinearGradient>
+            <Ionicons name="flash" size={40} color="#3B82F6" />
           </View>
-          <Text style={styles.title}>OLT Command</Text>
-          <Text style={styles.subtitle}>Next-Gen Fiber Operations</Text>
+          <Text style={styles.title}>OLT Management</Text>
+          <Text style={styles.subtitle}>Fiber Network Operations</Text>
         </View>
 
         <View style={styles.form}>
           <View style={styles.inputContainer}>
-            <View style={styles.inputIconWrapper}>
-              <Ionicons name="mail" size={20} color="#8B5CF6" />
-            </View>
+            <Ionicons name="mail" size={20} color="#6B7280" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Email Address"
-              placeholderTextColor="#6B7280"
+              placeholderTextColor="#9CA3AF"
               value={email}
               onChangeText={setEmail}
               autoCapitalize="none"
@@ -79,13 +71,11 @@ export default function LoginScreen() {
           </View>
 
           <View style={styles.inputContainer}>
-            <View style={styles.inputIconWrapper}>
-              <Ionicons name="lock-closed" size={20} color="#8B5CF6" />
-            </View>
+            <Ionicons name="lock-closed" size={20} color="#6B7280" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Password"
-              placeholderTextColor="#6B7280"
+              placeholderTextColor="#9CA3AF"
               value={password}
               onChangeText={setPassword}
               secureTextEntry={!showPassword}
@@ -100,29 +90,21 @@ export default function LoginScreen() {
             onPress={handleLogin}
             disabled={isLoading}
           >
-            <LinearGradient
-              colors={['#667eea', '#764ba2']}
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 0}}
-              style={styles.buttonGradient}
-            >
-              <Text style={styles.loginButtonText}>
-                {isLoading ? 'Authenticating...' : 'Access System'}
-              </Text>
-              <Ionicons name="arrow-forward" size={20} color="#FFFFFF" />
-            </LinearGradient>
+            <Text style={styles.loginButtonText}>
+              {isLoading ? 'Logging in...' : 'Login'}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.registerLink}
             onPress={() => router.push('/(auth)/register')}
           >
-            <Text style={styles.registerLinkText}>Create New Account</Text>
+            <Text style={styles.registerLinkText}>Create Account</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.demoCredentials}>
-          <Text style={styles.demoTitle}>🔐 Demo Access</Text>
+          <Text style={styles.demoTitle}>Demo Credentials</Text>
           <View style={styles.demoCard}>
             <Text style={styles.demoLabel}>Operator</Text>
             <Text style={styles.demoText}>operator@olt.com / operator123</Text>
@@ -140,7 +122,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0F0F1E',
+    backgroundColor: '#F9FAFB',
   },
   scrollContent: {
     flexGrow: 1,
@@ -149,31 +131,27 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginBottom: 48,
+    marginBottom: 40,
   },
   iconContainer: {
-    marginBottom: 20,
-  },
-  iconGradient: {
-    width: 96,
-    height: 96,
-    borderRadius: 24,
+    width: 80,
+    height: 80,
+    borderRadius: 20,
+    backgroundColor: '#EFF6FF',
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 16,
   },
   title: {
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginTop: 16,
-    letterSpacing: 1,
+    color: '#1F2937',
+    marginTop: 8,
   },
   subtitle: {
     fontSize: 14,
-    color: '#8B5CF6',
+    color: '#6B7280',
     marginTop: 8,
-    letterSpacing: 2,
-    textTransform: 'uppercase',
   },
   form: {
     width: '100%',
@@ -181,93 +159,83 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1A1A2E',
-    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#2D2D44',
+    borderColor: '#E5E7EB',
     marginBottom: 16,
     paddingHorizontal: 16,
   },
-  inputIconWrapper: {
+  inputIcon: {
     marginRight: 12,
   },
   input: {
     flex: 1,
-    height: 56,
-    color: '#FFFFFF',
+    height: 50,
+    color: '#1F2937',
     fontSize: 16,
   },
   eyeIcon: {
     padding: 8,
   },
   loginButton: {
-    borderRadius: 16,
+    backgroundColor: '#3B82F6',
+    borderRadius: 12,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 8,
-    overflow: 'hidden',
   },
   loginButtonDisabled: {
     opacity: 0.6,
-  },
-  buttonGradient: {
-    flexDirection: 'row',
-    height: 56,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 8,
   },
   loginButtonText: {
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '600',
-    letterSpacing: 0.5,
   },
   registerLink: {
-    marginTop: 24,
+    marginTop: 20,
     alignItems: 'center',
     padding: 12,
   },
   registerLinkText: {
-    color: '#8B5CF6',
+    color: '#3B82F6',
     fontSize: 14,
     fontWeight: '600',
   },
   demoCredentials: {
     marginTop: 32,
-    padding: 20,
-    backgroundColor: '#1A1A2E',
-    borderRadius: 16,
+    padding: 16,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#2D2D44',
+    borderColor: '#E5E7EB',
   },
   demoTitle: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '600',
-    color: '#FFFFFF',
+    color: '#374151',
     marginBottom: 12,
   },
   demoCard: {
     marginTop: 8,
-    padding: 12,
-    backgroundColor: '#0F0F1E',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#2D2D44',
+    padding: 10,
+    backgroundColor: '#F9FAFB',
+    borderRadius: 8,
   },
   demoLabel: {
     fontSize: 11,
-    color: '#8B5CF6',
+    color: '#6B7280',
     fontWeight: '600',
     marginBottom: 4,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
   },
   demoText: {
     fontSize: 12,
-    color: '#9CA3AF',
-    fontFamily: 'monospace',
+    color: '#374151',
   },
   loadingText: {
     fontSize: 16,
-    color: '#9CA3AF',
+    color: '#6B7280',
   },
 });
