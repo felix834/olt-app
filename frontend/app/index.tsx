@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingVi
 import { router } from 'expo-router';
 import { useAuth } from '../contexts/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function LoginScreen() {
   const { user, login, loading } = useAuth();
@@ -49,18 +50,27 @@ export default function LoginScreen() {
     >
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
-          <Ionicons name="business" size={64} color="#3B82F6" />
-          <Text style={styles.title}>OLT Management</Text>
-          <Text style={styles.subtitle}>FTTH Operations Platform</Text>
+          <View style={styles.iconContainer}>
+            <LinearGradient
+              colors={['#667eea', '#764ba2']}
+              style={styles.iconGradient}
+            >
+              <Ionicons name="flash" size={48} color="#FFFFFF" />
+            </LinearGradient>
+          </View>
+          <Text style={styles.title}>OLT Command</Text>
+          <Text style={styles.subtitle}>Next-Gen Fiber Operations</Text>
         </View>
 
         <View style={styles.form}>
           <View style={styles.inputContainer}>
-            <Ionicons name="mail-outline" size={20} color="#6B7280" style={styles.inputIcon} />
+            <View style={styles.inputIconWrapper}>
+              <Ionicons name="mail" size={20} color="#8B5CF6" />
+            </View>
             <TextInput
               style={styles.input}
-              placeholder="Email"
-              placeholderTextColor="#9CA3AF"
+              placeholder="Email Address"
+              placeholderTextColor="#6B7280"
               value={email}
               onChangeText={setEmail}
               autoCapitalize="none"
@@ -69,17 +79,19 @@ export default function LoginScreen() {
           </View>
 
           <View style={styles.inputContainer}>
-            <Ionicons name="lock-closed-outline" size={20} color="#6B7280" style={styles.inputIcon} />
+            <View style={styles.inputIconWrapper}>
+              <Ionicons name="lock-closed" size={20} color="#8B5CF6" />
+            </View>
             <TextInput
               style={styles.input}
               placeholder="Password"
-              placeholderTextColor="#9CA3AF"
+              placeholderTextColor="#6B7280"
               value={password}
               onChangeText={setPassword}
               secureTextEntry={!showPassword}
             />
             <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
-              <Ionicons name={showPassword ? 'eye-outline' : 'eye-off-outline'} size={20} color="#6B7280" />
+              <Ionicons name={showPassword ? 'eye' : 'eye-off'} size={20} color="#6B7280" />
             </TouchableOpacity>
           </View>
 
@@ -88,25 +100,37 @@ export default function LoginScreen() {
             onPress={handleLogin}
             disabled={isLoading}
           >
-            <Text style={styles.loginButtonText}>
-              {isLoading ? 'Logging in...' : 'Login'}
-            </Text>
+            <LinearGradient
+              colors={['#667eea', '#764ba2']}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}
+              style={styles.buttonGradient}
+            >
+              <Text style={styles.loginButtonText}>
+                {isLoading ? 'Authenticating...' : 'Access System'}
+              </Text>
+              <Ionicons name="arrow-forward" size={20} color="#FFFFFF" />
+            </LinearGradient>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.registerLink}
             onPress={() => router.push('/(auth)/register')}
           >
-            <Text style={styles.registerLinkText}>
-              Don't have an account? <Text style={styles.registerLinkTextBold}>Register</Text>
-            </Text>
+            <Text style={styles.registerLinkText}>Create New Account</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.demoCredentials}>
-          <Text style={styles.demoTitle}>Demo Accounts:</Text>
-          <Text style={styles.demoText}>Operator: operator@olt.com / operator123</Text>
-          <Text style={styles.demoText}>Field Engineer: field@olt.com / field123</Text>
+          <Text style={styles.demoTitle}>🔐 Demo Access</Text>
+          <View style={styles.demoCard}>
+            <Text style={styles.demoLabel}>Operator</Text>
+            <Text style={styles.demoText}>operator@olt.com / operator123</Text>
+          </View>
+          <View style={styles.demoCard}>
+            <Text style={styles.demoLabel}>Field Engineer</Text>
+            <Text style={styles.demoText}>field@olt.com / field123</Text>
+          </View>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -116,7 +140,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: '#0F0F1E',
   },
   scrollContent: {
     flexGrow: 1,
@@ -127,16 +151,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 48,
   },
+  iconContainer: {
+    marginBottom: 20,
+  },
+  iconGradient: {
+    width: 96,
+    height: 96,
+    borderRadius: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 'bold',
-    color: '#1F2937',
+    color: '#FFFFFF',
     marginTop: 16,
+    letterSpacing: 1,
   },
   subtitle: {
     fontSize: 14,
-    color: '#6B7280',
+    color: '#8B5CF6',
     marginTop: 8,
+    letterSpacing: 2,
+    textTransform: 'uppercase',
   },
   form: {
     width: '100%',
@@ -144,72 +181,93 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
+    backgroundColor: '#1A1A2E',
+    borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#2D2D44',
     marginBottom: 16,
     paddingHorizontal: 16,
   },
-  inputIcon: {
+  inputIconWrapper: {
     marginRight: 12,
   },
   input: {
     flex: 1,
-    height: 50,
-    color: '#1F2937',
+    height: 56,
+    color: '#FFFFFF',
     fontSize: 16,
   },
   eyeIcon: {
     padding: 8,
   },
   loginButton: {
-    backgroundColor: '#3B82F6',
-    borderRadius: 12,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderRadius: 16,
     marginTop: 8,
+    overflow: 'hidden',
   },
   loginButtonDisabled: {
     opacity: 0.6,
+  },
+  buttonGradient: {
+    flexDirection: 'row',
+    height: 56,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 8,
   },
   loginButtonText: {
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '600',
+    letterSpacing: 0.5,
   },
   registerLink: {
     marginTop: 24,
     alignItems: 'center',
+    padding: 12,
   },
   registerLinkText: {
-    color: '#6B7280',
+    color: '#8B5CF6',
     fontSize: 14,
-  },
-  registerLinkTextBold: {
-    color: '#3B82F6',
     fontWeight: '600',
   },
   demoCredentials: {
     marginTop: 32,
-    padding: 16,
-    backgroundColor: '#EFF6FF',
-    borderRadius: 12,
+    padding: 20,
+    backgroundColor: '#1A1A2E',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#2D2D44',
   },
   demoTitle: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '600',
-    color: '#1E40AF',
-    marginBottom: 8,
+    color: '#FFFFFF',
+    marginBottom: 12,
+  },
+  demoCard: {
+    marginTop: 8,
+    padding: 12,
+    backgroundColor: '#0F0F1E',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#2D2D44',
+  },
+  demoLabel: {
+    fontSize: 11,
+    color: '#8B5CF6',
+    fontWeight: '600',
+    marginBottom: 4,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
   demoText: {
-    fontSize: 11,
-    color: '#3B82F6',
-    marginTop: 4,
+    fontSize: 12,
+    color: '#9CA3AF',
+    fontFamily: 'monospace',
   },
   loadingText: {
     fontSize: 16,
-    color: '#6B7280',
+    color: '#9CA3AF',
   },
 });

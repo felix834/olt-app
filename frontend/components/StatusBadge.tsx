@@ -11,51 +11,64 @@ export default function StatusBadge({ status, type = 'olt' }: StatusBadgeProps) 
     const lowerStatus = status.toLowerCase();
     
     if (type === 'olt') {
-      if (lowerStatus === 'active') return '#10B981';
-      if (lowerStatus === 'fault') return '#EF4444';
-      return '#6B7280';
+      if (lowerStatus === 'active') return { bg: '#10b98120', text: '#10b981', glow: '#10b981' };
+      if (lowerStatus === 'fault') return { bg: '#ef444420', text: '#ef4444', glow: '#ef4444' };
+      return { bg: '#6b728020', text: '#9ca3af', glow: '#6b7280' };
     }
     
     if (type === 'customer' || type === 'onu') {
-      if (lowerStatus === 'active' || lowerStatus === 'online') return '#10B981';
-      if (lowerStatus === 'faulty' || lowerStatus === 'offline') return '#EF4444';
-      if (lowerStatus === 'low_power') return '#F59E0B';
-      return '#6B7280';
+      if (lowerStatus === 'active' || lowerStatus === 'online') return { bg: '#10b98120', text: '#10b981', glow: '#10b981' };
+      if (lowerStatus === 'faulty' || lowerStatus === 'offline') return { bg: '#ef444420', text: '#ef4444', glow: '#ef4444' };
+      if (lowerStatus === 'low_power') return { bg: '#f59e0b20', text: '#f59e0b', glow: '#f59e0b' };
+      return { bg: '#6b728020', text: '#9ca3af', glow: '#6b7280' };
     }
     
     if (type === 'fault') {
-      if (lowerStatus === 'resolved' || lowerStatus === 'closed') return '#10B981';
-      if (lowerStatus === 'open') return '#EF4444';
-      if (lowerStatus === 'in_progress') return '#3B82F6';
-      return '#F59E0B';
+      if (lowerStatus === 'resolved' || lowerStatus === 'closed') return { bg: '#10b98120', text: '#10b981', glow: '#10b981' };
+      if (lowerStatus === 'open') return { bg: '#ef444420', text: '#ef4444', glow: '#ef4444' };
+      if (lowerStatus === 'in_progress') return { bg: '#3b82f620', text: '#3b82f6', glow: '#3b82f6' };
+      return { bg: '#f59e0b20', text: '#f59e0b', glow: '#f59e0b' };
     }
     
     if (type === 'billing') {
-      if (lowerStatus === 'paid') return '#10B981';
-      if (lowerStatus === 'overdue') return '#EF4444';
-      return '#F59E0B';
+      if (lowerStatus === 'paid') return { bg: '#10b98120', text: '#10b981', glow: '#10b981' };
+      if (lowerStatus === 'overdue') return { bg: '#ef444420', text: '#ef4444', glow: '#ef4444' };
+      return { bg: '#f59e0b20', text: '#f59e0b', glow: '#f59e0b' };
     }
     
-    return '#6B7280';
+    return { bg: '#6b728020', text: '#9ca3af', glow: '#6b7280' };
   };
 
+  const colors = getColor();
+
   return (
-    <View style={[styles.badge, { backgroundColor: getColor() }]}>
-      <Text style={styles.text}>{status.replace('_', ' ').toUpperCase()}</Text>
+    <View style={[styles.badge, { backgroundColor: colors.bg, borderColor: colors.text }]}>
+      <View style={[styles.indicator, { backgroundColor: colors.text }]} />
+      <Text style={[styles.text, { color: colors.text }]}>
+        {status.replace('_', ' ').toUpperCase()}
+      </Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   badge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    alignSelf: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 20,
+    borderWidth: 1,
+    gap: 6,
+  },
+  indicator: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
   },
   text: {
-    color: '#FFFFFF',
-    fontSize: 11,
-    fontWeight: '600',
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 0.8,
   },
 });
