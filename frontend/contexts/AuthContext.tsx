@@ -91,10 +91,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = async () => {
-    setUser(null);
-    setToken(null);
-    await AsyncStorage.removeItem('token');
-    await AsyncStorage.removeItem('user');
+    try {
+      setUser(null);
+      setToken(null);
+      await AsyncStorage.removeItem('token');
+      await AsyncStorage.removeItem('user');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   return (

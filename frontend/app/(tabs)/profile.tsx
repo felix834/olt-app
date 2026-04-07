@@ -11,9 +11,11 @@ export default function ProfileScreen() {
   const handleLogout = async () => {
     try {
       await logout();
+      // Force navigation to login
       router.replace('/');
     } catch (error) {
       console.error('Logout error:', error);
+      // Even if error, force to login
       router.replace('/');
     }
   };

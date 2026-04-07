@@ -1,14 +1,17 @@
 import React from 'react';
-import { Tabs, router } from 'expo-router';
+import { Tabs, Redirect } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../../contexts/AuthContext';
-import { useEffect } from 'react';
 
 export default function TabsLayout() {
-  const { user, isOperator, isFieldEngineer } = useAuth();
+  const { user, loading, isOperator, isFieldEngineer } = useAuth();
+
+  if (loading) {
+    return null;
+  }
 
   if (!user) {
-    return null;
+    return <Redirect href="/" />;
   }
 
   return (

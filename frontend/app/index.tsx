@@ -18,6 +18,15 @@ export default function LoginScreen() {
     }
   }, [user, loading]);
 
+  // Clear any stale data on mount
+  useEffect(() => {
+    if (!user && !loading) {
+      // Ensure we're on login page
+      setEmail('');
+      setPassword('');
+    }
+  }, [user, loading]);
+
   const handleLogin = async () => {
     if (!email || !password) {
       Alert.alert('Error', 'Please enter email and password');
